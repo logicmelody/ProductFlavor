@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    flavorDimensions "product"
+
     defaultConfig {
         applicationId "com.dl.productflavor"
         minSdkVersion 23
@@ -10,34 +12,38 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     productFlavors {
         gj {
-            applicationId = "com.dl.gj"
+            dimension "product"
+            applicationId = "com.gjmobile"
 
             // 會在產出的 resource 裡面新增一組 R.string.app_name 然後內容是這邊設定的值
             resValue "string", "app_name", "京彩掛機"
 
             // 在BuildConfig中會多出一個static的變數，我們可以利用這個變數來決定要不要顯示用來測試的功能
-            buildConfigField "string", "product", "gj"
+            buildConfigField "String", "PRODUCT", "\"gj\""
 
             manifestPlaceholders = [
-                    app_icon: "@mipmap/ic_launcher_dev"
+                    appIcon: "@mipmap/ic_launcher_dev"
             ]
         }
 
         yc {
-            applicationId = "com.dl.yc"
-            buildConfigField "string", "product", "yc"
+            dimension "product"
+            applicationId = "com.ljit.ycmobile"
+            buildConfigField "String", "PRODUCT", "\"yc\""
             resValue "string", "app_name", "贏彩掛機"
 
             manifestPlaceholders = [
-                    app_icon: "@mipmap/ic_launcher"
+                    appIcon: "@mipmap/ic_launcher"
             ]
         }
     }
