@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.dl.productflavor"
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        gj {
+            applicationId = "com.dl.gj"
+
+            // 會在產出的 resource 裡面新增一組 R.string.app_name 然後內容是這邊設定的值
+            resValue "string", "app_name", "京彩掛機"
+
+            // 在BuildConfig中會多出一個static的變數，我們可以利用這個變數來決定要不要顯示用來測試的功能
+            buildConfigField "string", "product", "gj"
+
+            manifestPlaceholders = [
+                    app_icon: "@mipmap/ic_launcher_dev"
+            ]
+        }
+
+        yc {
+            applicationId = "com.dl.yc"
+            buildConfigField "string", "product", "yc"
+            resValue "string", "app_name", "贏彩掛機"
+
+            manifestPlaceholders = [
+                    app_icon: "@mipmap/ic_launcher"
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
